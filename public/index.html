@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Upload a File</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" id="fileInput" name="file" />
+      <label for="fileInput">Choose a file</label>
+      <button type="submit">Upload</button>
+    </form>
+    <p id="message"></p>
+    <div id="fileContainer"></div> <!-- Container to display the uploaded file -->
+  </div>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+      if (!file) {
+        document.getElementById('message').innerText = 'Please select a file.';
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          document.getElementById('message').innerText = `File uploaded successfully: ${result.file.filename}`;
+          displayFile(result.url);
+        } else {
+          document.getElementById('message').innerText = `Upload failed: ${result.message}`;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('message').innerText = 'An error occurred while uploading the file.';
+      }
+    });
+
+    function displayFile(url) {
+      const fileContainer = document.getElementById('fileContainer');
+      fileContainer.innerHTML = ''; // Clear previous content
+
+      const fileLink = document.createElement('a');
+      fileLink.href = url;
+      fileLink.innerText = 'View Uploaded File';
+      fileLink.target = '_blank'; // Open in a new tab
+
+      const fileImage = document.createElement('img');
+      fileImage.src = url;
+      fileImage.alt = 'Uploaded File';
+      fileImage.style.maxWidth = '100%';
+      fileImage.style.marginTop = '20px';
+
+      fileContainer.appendChild(fileLink);
+      fileContainer.appendChild(document.createElement('br'));
+      fileContainer.appendChild(fileImage);
+    }
+  </script>
+</body>
+</html>
