@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_config_1 = require("./multer.config");
 const app_service_1 = require("./app.service");
-const path_1 = require("path");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
@@ -32,16 +31,6 @@ let AppController = class AppController {
             url: `/uploads/${file.filename}`,
         };
     }
-    async getFile(filename, res) {
-        const filePath = (0, path_1.join)(__dirname, '..', 'public', filename);
-        console.log('Serving file from:', filePath);
-        res.sendFile(filePath, (err) => {
-            if (err) {
-                console.log(err);
-                res.status(404).send({ message: 'File not found' });
-            }
-        });
-    }
 };
 exports.AppController = AppController;
 __decorate([
@@ -52,14 +41,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "uploadFile", null);
-__decorate([
-    (0, common_1.Get)(':filename'),
-    __param(0, (0, common_1.Param)('filename')),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", Promise)
-], AppController.prototype, "getFile", null);
 exports.AppController = AppController = __decorate([
     (0, common_1.Controller)('upload'),
     __metadata("design:paramtypes", [app_service_1.AppService])

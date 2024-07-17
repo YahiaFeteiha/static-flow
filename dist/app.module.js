@@ -20,6 +20,10 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: (0, path_1.join)(__dirname, '..', 'public'),
+                serveRoot: '/',
+            }),
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'public/uploads'),
                 serveRoot: '/uploads',
             }),
         ],

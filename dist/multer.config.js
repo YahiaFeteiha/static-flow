@@ -14,7 +14,7 @@ const allowedMimeTypes = [
 ];
 exports.multerConfig = {
     storage: (0, multer_1.diskStorage)({
-        destination: './public',
+        destination: './public/uploads',
         filename: (req, file, cb) => {
             const name = file.originalname.split('.')[0];
             const fileExtName = (0, path_1.extname)(file.originalname);

@@ -13,7 +13,7 @@ const allowedMimeTypes = [
 
 export const multerConfig = {
   storage: diskStorage({
-    destination: './public',
+    destination: './public/uploads',
     filename: (
       req: any,
       file: { originalname: string },

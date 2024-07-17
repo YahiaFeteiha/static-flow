@@ -34,15 +34,15 @@ export class AppController {
       url: `/uploads/${file.filename}`,
     };
   }
-  @Get(':filename')
-  async getFile(@Param('filename') filename: string, @Res() res: Response) {
-    const filePath = join(__dirname, '..', 'public', filename);
-    console.log('Serving file from:', filePath);
-    res.sendFile(filePath, (err) => {
-      if (err) {
-        console.log(err);
-        res.status(404).send({ message: 'File not found' });
-      }
-    });
-  }
+  // @Get(':filename')
+  // async getFile(@Param('filename') filename: string, @Res() res: Response) {
+  //   const filePath = join(__dirname, '..', 'public/uploads', filename);
+  //   console.log('Serving file from:', filePath);
+  //   res.sendFile(filePath, (err) => {
+  //     if (err) {
+  //       console.log(err);
+  //       res.status(404).send({ message: 'File not found' });
+  //     }
+  //   });
+  // }
 }

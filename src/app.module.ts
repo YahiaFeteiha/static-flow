@@ -8,6 +8,10 @@ import { AppService } from './app.service';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
+      serveRoot: '/',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public/uploads'),
       serveRoot: '/uploads',
     }),
   ],
